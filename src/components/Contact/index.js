@@ -135,7 +135,7 @@ const Contacts = () => {
         "service_ocdx6i8",
         "template_35pgk1f",
         e.target,
-        "xJ0sy7rkxYRhrfUJvm"
+        "3X2EASVaMCSQ39BJE"
       )
       .then(
         (result) => {

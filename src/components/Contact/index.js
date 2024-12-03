@@ -132,8 +132,8 @@ const Contacts = () => {
     e.preventDefault();
     emailjs
       .sendForm(
-        "service_x7bs66xv",
-        "template_tq8td5be",
+        "service_ocdx6i8",
+        "template_35pgk1f",
         e.target,
         "xJ0sy7rkxYRhrfUJvm"
       )

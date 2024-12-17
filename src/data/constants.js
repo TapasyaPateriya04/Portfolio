@@ -13,10 +13,10 @@ export const Bio = {
     "A dedicated and dynamic final year Computer Science and AI student, I thrive on challenges and am passionate about continuous learning. I've developed strong leadership and technical skills. With a growth mindset and a commitment to excellence, I aim to make a meaningful impact through innovation and dedicated efforts.",
   github: "https://github.com/TapasyaPateriya04",
   resume:
-    "https://drive.google.com/file/d/1iZ3fTSHn1th-_1Ohe_PjrTR1kphOQtRb/view?usp=sharing",
+    "https://drive.google.com/file/d/1AjLgHmh6E4leCIEaMF-9_2ZJi-DrrMkD/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/tapasya-pateriya-175465261/",
   twitter: "https://twitter.com",
-  leetcode: "https://www.leetcode.com",
+  leetcode: "https://leetcode.com/u/tapasya_/",
   geekforgeeks: "https://www.facebook.com",
 };
 

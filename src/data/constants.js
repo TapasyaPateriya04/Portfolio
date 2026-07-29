@@ -10,10 +10,9 @@ export const Bio = {
     
   ],
   description:
-    "A dedicated and dynamic final year Computer Science and AI student, I thrive on challenges and am passionate about continuous learning. I've developed strong leadership and technical skills. With a growth mindset and a commitment to excellence, I aim to make a meaningful impact through innovation and dedicated efforts.",
+    "Computer Science graduate with a strong foundation in software development and problem-solving. Passionate about building innovative solutions, learning new technologies, and contributing to impactful projects through collaboration and technical expertise.",
   github: "https://github.com/TapasyaPateriya04",
-  resume:
-    "https://drive.google.com/file/d/1xIh7A7hfllV_VwKl13LJY5mEUGTcJCif/view?usp=drive_link",
+  resume:"https://drive.google.com/file/d/1ZmKifO5eNMNJRhHZw7zTa5vw5-kXdvRu/view?usp=sharing",
   linkedin: "https://www.linkedin.com/in/tapasya-pateriya-175465261/",
   twitter: "https://twitter.com",
   leetcode: "https://leetcode.com/u/tapasya_/",
@@ -127,12 +126,21 @@ export const experiences = [
     img: "https://www.thestairs.in/static/media/Logo.9f6d8d7019ae3f598540f4a53ef274f0.svg",
     role: "Frontend Engineer Intern",
     company: "thestairs.in",
-    date: "nov 2024 - current",
+    date: "Oct 2024 - Dec 2024",
     desc: "Contributed to the development and enhancement of interactive, user-friendly web applications aimed at bridging the gap between academia and the corporate world. Collaborated closely with the design and backend teams to implement responsive UI components.",
     skills: ["ReactJS", "Tailwind CSS", "NodeJS"," Vercel", "Git", "Github", "Web Development"],
     doc: "",
   },
-  
+    {
+    id: 1,
+    img: "https://www.thestdata:image/png;base64,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airs.in/static/media/Logo.9f6d8d7019ae3f598540f4a53ef274f0.svg",
+    role: "Fullstack Intern",
+    company: "CARS 24",
+    date: "Oct 2025 - current",
+    desc: "Contributed to the development and enhancement of interactive, user-friendly web applications aimed at bridging the gap between academia and the corporate world. Collaborated closely with the design and backend teams to implement responsive UI components.",
+    skills: ["Java", "Spring Boot", "Microservices"," GitLab", "MongoDB", "RBAC", "FullStack Development"],
+    doc: "",
+  },
 ];
 
 export const education = [
@@ -142,7 +150,7 @@ export const education = [
     school: "Pranveer Singh Institute Of Technology, Kanpur, UP",
     date: "2021 - 2025",
     grade: "CGPA 7.4",
-    desc: "CompleatedB. Tech in Computer Science at Pranveer Singh Institute Of Technology, Kanpur, UP. Completed 6 semesters with a CGPA of 7.3. Covered courses include Data Structures, Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, and Computer Networks. Actively engaged in projects and activities related to software development.",
+    desc: "CompleatedB. Tech in Computer Science at Pranveer Singh Institute Of Technology, Kanpur, UP. Completed 6 semesters with a CGPA of 7.4. Covered courses include Data Structures, Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, and Computer Networks. Actively engaged in projects and activities related to software development.",
     degree: "Bachelor of Technology - B.Tech, Computer Science",
   },
   {
@@ -151,7 +159,7 @@ export const education = [
     school: "A.V.M Inter College, Lalitpur, UP",
     date: "2020-2021",
     grade: "74.5%",
-    desc: "Completed Higher Secondary Education at A.V.M Inter College, Lalitpur, UP. Achieved a percentage of 71.5%. With Science stream.",
+    desc: "Completed Higher Secondary Education at A.V.M Inter College, Lalitpur, UP. Achieved a percentage of 74.5%. With Science stream.",
     degree: "Higher Secondary Education - 12th Grade",
   },
   {

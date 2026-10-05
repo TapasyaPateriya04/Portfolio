@@ -86,7 +86,6 @@ export default function Contact() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (e.currentTarget.elements.company?.value) return; // honeypot
     setTouched({ from_name: true, from_email: true, subject: true, message: true });
     if (Object.keys(errors).length) {
       const first = Object.keys(EMPTY).find((k) => errors[k]);
@@ -241,10 +240,6 @@ export default function Contact() {
               error={shown("message")}
               required
             />
-            <div className="absolute -left-[9999px]" aria-hidden="true">
-              <label htmlFor="company">Company</label>
-              <input id="company" name="company" tabIndex={-1} autoComplete="off" />
-            </div>
 
             <div className="flex flex-col-reverse items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div id="form-status" aria-live="polite" className="min-h-[1.25rem] text-sm">

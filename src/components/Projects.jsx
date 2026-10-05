@@ -14,9 +14,9 @@ function Featured({ project, flip }) {
           to={`/work/${project.slug}`}
           tabIndex={-1}
           aria-hidden="true"
-          className="block transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1"
+          className="block rounded-[1.75rem] transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1"
         >
-          <ProjectVisual kind={project.visual} className="min-h-[18rem] sm:aspect-[16/11]" />
+          <ProjectVisual kind={project.visual} className="min-h-[20rem] sm:aspect-[16/11]" />
         </Link>
       </Reveal>
       <Reveal delay={0.06} className={`lg:col-span-5 ${flip ? "lg:order-1" : ""}`}>
@@ -42,13 +42,13 @@ function Featured({ project, flip }) {
           ))}
         </ul>
 
-        <div className="mt-7 flex flex-wrap items-center gap-3">
+        <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3">
           <Link to={`/work/${project.slug}`} className="btn-primary group">
             Read case study
             <ArrowRightIcon size={15} weight="bold" className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
           </Link>
           {project.links.map((l) => (
-            <ExternalLink key={l.href} link={l} />
+            <ExternalLink key={l.href} link={l} compact />
           ))}
           {project.privateNote && (
             <span className="inline-flex items-center gap-1.5 text-xs text-zinc-500">
@@ -81,13 +81,13 @@ export default function Projects() {
         <Reveal>
           <h3 className="eyebrow">More projects</h3>
         </Reveal>
-        <ul className="mt-6 divide-y divide-zinc-200 border-y border-zinc-200 dark:divide-zinc-800 dark:border-zinc-800">
+        <ul className="mt-6 divide-y divide-zinc-200 border-y border-zinc-200 md:-mx-4 dark:divide-zinc-800 dark:border-zinc-800">
           {moreProjects.map((p, i) => (
             <Reveal
               as="li"
               key={p.title}
               delay={i * 0.05}
-              className="grid gap-3 py-7 md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:gap-8"
+              className="grid gap-3 py-7 transition-colors md:grid-cols-[minmax(0,16rem)_minmax(0,1fr)_auto] md:gap-8 md:px-4 md:hover:bg-zinc-900/[0.025] dark:md:hover:bg-white/[0.025]"
             >
               <div>
                 <h4 className="font-medium text-zinc-900 dark:text-zinc-100">

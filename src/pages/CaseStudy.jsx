@@ -53,8 +53,11 @@ export default function CaseStudy() {
             </div>
           )}
           <div>
-            <dt className="eyebrow">{project.stat.label}</dt>
-            <dd className="mt-1.5 font-mono text-xl text-accent">{project.stat.value}</dd>
+            <dt className="eyebrow">Headline</dt>
+            <dd className="mt-1.5">
+              <span className="font-mono text-xl text-accent">{project.stat.value}</span>
+              <span className="mt-0.5 block text-xs text-zinc-500 dark:text-zinc-400">{project.stat.label}</span>
+            </dd>
           </div>
           <div className="col-span-2">
             <dt className="eyebrow">Stack</dt>
@@ -75,7 +78,7 @@ export default function CaseStudy() {
         transition={{ type: "spring", stiffness: 80, damping: 20, delay: 0.1 }}
         className="mt-12"
       >
-        <ProjectVisual kind={project.visual} className="min-h-[18rem] sm:aspect-[21/10]" />
+        <ProjectVisual kind={project.visual} className="min-h-[20rem] sm:aspect-[21/10]" />
       </motion.div>
 
       <div className="mt-6 flex flex-wrap items-center gap-3">

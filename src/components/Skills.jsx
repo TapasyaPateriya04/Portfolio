@@ -1,9 +1,39 @@
 import { useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { skillGroups } from "../data/content.js";
+import { useSpotlight } from "../hooks/useSpotlight.js";
 import Section from "./Section.jsx";
 import Reveal from "./Reveal.jsx";
 import SkillIcon from "./SkillIcon.jsx";
+
+const tile = {
+  hidden: { opacity: 0, y: 12, scale: 0.98 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring", stiffness: 160, damping: 20 } },
+};
+
+function SkillTile({ skill }) {
+  const onPointerMove = useSpotlight();
+  return (
+    <motion.li variants={tile} className="h-full">
+      <div
+        onPointerMove={onPointerMove}
+        className="spotlight group flex h-full items-center gap-3.5 rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 transition-[transform,border-color] duration-300 hover:-translate-y-0.5 dark:border-zinc-800/80 dark:bg-zinc-900/40"
+      >
+        <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-zinc-200 bg-zinc-50 text-zinc-700 transition-[color,transform] duration-300 group-hover:scale-105 group-hover:text-accent dark:border-zinc-800 dark:bg-zinc-950/60 dark:text-zinc-300">
+          <SkillIcon name={skill.icon} size={20} />
+        </span>
+        <span className="min-w-0">
+          <span className="block text-sm font-medium text-zinc-900 dark:text-zinc-100">{skill.name}</span>
+          {skill.note && (
+            <span className="mt-0.5 block text-xs leading-snug text-zinc-500 dark:text-zinc-400">
+              {skill.note}
+            </span>
+          )}
+        </span>
+      </div>
+    </motion.li>
+  );
+}
 
 export default function Skills() {
   const [activeId, setActiveId] = useState(skillGroups[0].id);
@@ -12,13 +42,17 @@ export default function Skills() {
 
   const onKeyDown = (e, i) => {
     const last = skillGroups.length - 1;
-    let next = null;
-    if (e.key === "ArrowRight") next = i === last ? 0 : i + 1;
-    if (e.key === "ArrowLeft") next = i === 0 ? last : i - 1;
-    if (e.key === "Home") next = 0;
-    if (e.key === "End") next = last;
-    if (next === null) return;
+    const keys = {
+      ArrowRight: i === last ? 0 : i + 1,
+      ArrowDown: i === last ? 0 : i + 1,
+      ArrowLeft: i === 0 ? last : i - 1,
+      ArrowUp: i === 0 ? last : i - 1,
+      Home: 0,
+      End: last,
+    };
+    if (!(e.key in keys)) return;
     e.preventDefault();
+    const next = keys[e.key];
     setActiveId(skillGroups[next].id);
     tabs.current[next]?.focus();
   };
@@ -28,14 +62,14 @@ export default function Skills() {
       id="skills"
       index="02"
       eyebrow="Skills"
-      title="The tools I reach for."
-      intro="Everything here is something I have used in internship or project work and listed on my resume."
+      title="Frontend first, with the backend to support it."
+      intro="Grouped by where each one sits in a product. Everything here comes from my internship and project work."
     >
-      <Reveal>
+      <Reveal className="grid gap-8 lg:grid-cols-[minmax(0,14rem)_minmax(0,1fr)] lg:gap-10">
         <div
           role="tablist"
           aria-label="Skill categories"
-          className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0"
+          className="-mx-4 flex gap-1 overflow-x-auto px-4 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:px-0 lg:flex-col lg:flex-nowrap lg:gap-0.5 lg:overflow-visible"
         >
           {skillGroups.map((g, i) => {
             const selected = g.id === activeId;
@@ -51,22 +85,22 @@ export default function Skills() {
                 tabIndex={selected ? 0 : -1}
                 onClick={() => setActiveId(g.id)}
                 onKeyDown={(e) => onKeyDown(e, i)}
-                className={`relative shrink-0 rounded-full px-4 py-2 text-sm transition-colors ${
+                className={`relative flex shrink-0 items-center justify-between gap-3 rounded-full px-4 py-2 text-left text-sm transition-colors lg:rounded-xl lg:py-2.5 ${
                   selected
                     ? "text-zinc-50 dark:text-zinc-900"
-                    : "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                    : "text-zinc-600 hover:bg-zinc-900/[0.04] hover:text-zinc-900 dark:text-zinc-400 dark:hover:bg-white/[0.04] dark:hover:text-zinc-100"
                 }`}
               >
                 {selected && (
                   <motion.span
                     layoutId="skill-tab"
-                    className="absolute inset-0 -z-10 rounded-full bg-zinc-900 dark:bg-zinc-100"
+                    className="absolute inset-0 -z-10 rounded-full bg-zinc-900 lg:rounded-xl dark:bg-zinc-100"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
                   />
                 )}
-                <span className="relative">{g.label}</span>
-                <span className={`relative ml-1.5 font-mono text-[11px] ${selected ? "opacity-60" : "opacity-50"}`}>
-                  {g.items.length}
+                <span className="font-medium">{g.label}</span>
+                <span className={`font-mono text-[11px] tabular-nums ${selected ? "opacity-60" : "opacity-50"}`}>
+                  {String(g.items.length).padStart(2, "0")}
                 </span>
               </button>
             );
@@ -77,50 +111,25 @@ export default function Skills() {
           id={`panel-${group.id}`}
           role="tabpanel"
           aria-labelledby={`tab-${group.id}`}
-          className="mt-6 min-h-[13rem]"
+          className="min-h-[20rem] sm:min-h-[17rem]"
         >
           <AnimatePresence mode="wait" initial={false}>
-            <motion.ul
+            <motion.div
               key={group.id}
-              className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5"
               initial="hidden"
               animate="show"
-              exit={{ opacity: 0, transition: { duration: 0.12 } }}
-              variants={{ show: { transition: { staggerChildren: 0.035 } } }}
+              exit={{ opacity: 0, y: -6, transition: { duration: 0.15 } }}
+              variants={{ show: { transition: { staggerChildren: 0.04 } } }}
             >
-              {group.items.map((skill) => (
-                <motion.li
-                  key={skill.name}
-                  variants={{
-                    hidden: { opacity: 0, y: 10 },
-                    show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 140, damping: 18 } },
-                  }}
-                  className="group relative"
-                >
-                  <div
-                    tabIndex={skill.note ? 0 : undefined}
-                    aria-describedby={skill.note ? `note-${skill.icon}` : undefined}
-                    className="surface flex h-full items-center gap-3 px-4 py-4 transition-[border-color,transform] duration-200 hover:-translate-y-0.5 hover:border-zinc-300 dark:hover:border-zinc-700"
-                  >
-                    <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-zinc-100 text-zinc-700 transition-colors group-hover:text-accent dark:bg-zinc-800/70 dark:text-zinc-300">
-                      <SkillIcon name={skill.icon} size={20} />
-                    </span>
-                    <span className="min-w-0 text-sm font-medium leading-tight text-zinc-800 dark:text-zinc-200">
-                      {skill.name}
-                    </span>
-                  </div>
-                  {skill.note && (
-                    <span
-                      id={`note-${skill.icon}`}
-                      role="tooltip"
-                      className="pointer-events-none absolute bottom-full left-1/2 z-20 mb-2 w-max max-w-[14rem] -translate-x-1/2 translate-y-1 rounded-lg bg-zinc-900 px-2.5 py-1.5 text-center font-mono text-[11px] text-zinc-100 opacity-0 shadow-lg transition-[opacity,transform] duration-150 group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 dark:bg-zinc-100 dark:text-zinc-900"
-                    >
-                      {skill.note}
-                    </span>
-                  )}
-                </motion.li>
-              ))}
-            </motion.ul>
+              <motion.p variants={tile} className="mb-5 text-sm text-zinc-500 dark:text-zinc-400">
+                {group.blurb}
+              </motion.p>
+              <ul className="grid grid-cols-1 gap-3 min-[480px]:grid-cols-2 xl:grid-cols-3">
+                {group.items.map((skill) => (
+                  <SkillTile key={skill.name} skill={skill} />
+                ))}
+              </ul>
+            </motion.div>
           </AnimatePresence>
         </div>
       </Reveal>

@@ -50,11 +50,12 @@ const tone = {
 };
 
 const TypedCode = memo(function TypedCode({ animate }) {
-  const [count, setCount] = useState(animate ? 0 : TOTAL);
+  // start part-way through so the editor is never empty on first paint
+  const [count, setCount] = useState(animate ? Math.round(TOTAL * 0.45) : TOTAL);
 
   useEffect(() => {
     if (!animate) return undefined;
-    let n = 0;
+    let n = Math.round(TOTAL * 0.45);
     let timer;
     const tick = () => {
       n += 2;
@@ -62,7 +63,7 @@ const TypedCode = memo(function TypedCode({ animate }) {
       if (n < TOTAL) timer = setTimeout(tick, 28);
       else
         timer = setTimeout(() => {
-          n = 0;
+          n = Math.round(TOTAL * 0.45);
           tick();
         }, 5200);
     };
@@ -185,14 +186,14 @@ export default function HeroVisual() {
           </span>
           <span className="hidden font-mono text-[11px] text-zinc-400 sm:inline">BatchScreen.jsx</span>
         </div>
-        <div className="px-4 pb-24 pt-4 sm:pb-20">
+        <div className="px-4 pb-[10.5rem] pt-4 sm:pb-20">
           <TypedCode animate={animate} />
         </div>
       </motion.div>
 
       <motion.div
         style={{ x: frontX, y: frontY }}
-        className="glass absolute -bottom-8 right-2 w-[min(15.5rem,70%)] rounded-2xl p-3 sm:-right-6"
+        className="glass absolute -bottom-6 right-3 w-[min(15.5rem,72%)] rounded-2xl p-3 sm:-bottom-8 sm:-right-6"
       >
         <div className="mb-2.5 flex items-center justify-between">
           <p className="text-xs font-medium text-zinc-800 dark:text-zinc-100">Batch requests</p>

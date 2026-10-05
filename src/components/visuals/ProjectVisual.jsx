@@ -1,6 +1,7 @@
 import { memo, useEffect, useState } from "react";
 import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
 import { LockSimpleIcon, PencilSimpleIcon, PlusIcon, TrashIcon } from "@phosphor-icons/react";
+import { useSpotlight } from "../../hooks/useSpotlight.js";
 
 // Code-built illustrations. They show the shape of each system, not real data.
 
@@ -21,7 +22,7 @@ const PrismVisual = memo(function PrismVisual() {
   const active = useTicker(1400, ROLES.length, !reduce);
   const bars = [38, 52, 44, 61, 57, 72, 66, 80, 76, 88];
   return (
-    <div className="grid h-full min-h-[18rem] grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-3 p-4 sm:gap-4 sm:p-6">
+    <div className="grid min-h-[17rem] grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-3 p-4 sm:gap-4 sm:p-6">
       <div className="surface flex flex-col p-3">
         <p className="mb-2 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-500">
           <LockSimpleIcon size={11} weight="bold" aria-hidden="true" /> RBAC
@@ -88,7 +89,7 @@ const JobHuntVisual = memo(function JobHuntVisual() {
   const frame = useTicker(2600, 3, !reduce);
   const ranked = JOBS.map((j) => ({ ...j, scores: j.s[frame], total: total(j.s[frame]) })).sort((a, b) => b.total - a.total);
   return (
-    <div className="flex h-full flex-col justify-center p-4 sm:p-6">
+    <div className="flex flex-col justify-center p-4 sm:p-6">
       <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-1">
         {WEIGHTS.map((w) => (
           <span key={w.key} className="inline-flex items-center gap-1 font-mono text-[10px] text-zinc-500">
@@ -146,7 +147,7 @@ const EmsVisual = memo(function EmsVisual() {
   const row = useTicker(1300, PEOPLE.length, !reduce);
   const op = OPS[row % OPS.length];
   return (
-    <div className="flex h-full flex-col justify-center p-4 sm:p-6">
+    <div className="flex flex-col justify-center p-4 sm:p-6">
       <div className="mb-3 flex items-center justify-between">
         <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">/employees</span>
         <motion.span
@@ -185,17 +186,40 @@ const EmsVisual = memo(function EmsVisual() {
   );
 });
 
-const visuals = { prism: PrismVisual, jobhunt: JobHuntVisual, ems: EmsVisual };
+const visuals = {
+  prism: { V: PrismVisual, url: "prism · client portal" },
+  jobhunt: { V: JobHuntVisual, url: "localhost:8501" },
+  ems: { V: EmsVisual, url: "ems-roan-eta.vercel.app" },
+};
 
-export default function ProjectVisual({ kind, className = "" }) {
-  const V = visuals[kind];
+// A browser window around each illustration, so the projects read as products.
+export default function ProjectVisual({ kind, className = "", interactive = true }) {
+  const { V, url } = visuals[kind] || {};
+  const onPointerMove = useSpotlight();
   return (
     <div
       aria-hidden="true"
-      className={`relative flex flex-col overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-100/70 dark:border-zinc-800 dark:bg-zinc-900/60 ${className}`}
+      onPointerMove={interactive ? onPointerMove : undefined}
+      className={`${interactive ? "spotlight" : ""} group relative flex flex-col overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-zinc-100/70 shadow-[0_24px_48px_-28px_rgb(9_9_11/0.35)] dark:border-zinc-800 dark:bg-zinc-900/60 dark:shadow-[0_24px_48px_-28px_rgb(0_0_0/0.8)] ${className}`}
     >
-      <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
-      <div className="relative grid flex-1">{V && <V />}</div>
+      <div className="relative flex items-center gap-3 border-b border-zinc-200 bg-white/60 px-4 py-2.5 dark:border-zinc-800 dark:bg-zinc-950/40">
+        <span className="flex gap-1.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+          <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+          <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+        </span>
+        <span className="mx-auto flex max-w-[60%] items-center gap-1.5 truncate rounded-md bg-zinc-100 px-3 py-1 font-mono text-[10px] text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
+          <LockSimpleIcon size={10} className="shrink-0" />
+          <span className="truncate">{url}</span>
+        </span>
+        <span className="w-[42px]" />
+      </div>
+      <div className="relative grid flex-1 place-items-center">
+        <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
+        <div className="relative w-full max-w-2xl transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]">
+          {V && <V />}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import Hero from "../components/Hero.jsx";
+import StackBand from "../components/StackBand.jsx";
 import About from "../components/About.jsx";
 import Skills from "../components/Skills.jsx";
 import Experience from "../components/Experience.jsx";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <StackBand />
       <About />
       <Skills />
       <Experience />

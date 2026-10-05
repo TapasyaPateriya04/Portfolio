@@ -25,7 +25,7 @@ export default function CaseStudy() {
         className="group inline-flex items-center gap-1.5 text-sm text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
       >
         <ArrowLeftIcon size={14} weight="bold" className="transition-transform group-hover:-translate-x-0.5" aria-hidden="true" />
-        All work
+        All projects
       </Link>
 
       <motion.header

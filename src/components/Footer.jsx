@@ -1,34 +1,59 @@
-import { profile } from "../data/content.js";
+import { Link } from "react-router-dom";
+import { navLinks, profile } from "../data/content.js";
+
+const elsewhere = [
+  { label: "GitHub", href: profile.github, external: true },
+  { label: "LinkedIn", href: profile.linkedin, external: true },
+  { label: "Email", href: `mailto:${profile.email}` },
+  { label: "Resume", href: profile.resume, external: true },
+];
 
 export default function Footer() {
   return (
     <footer className="border-t border-zinc-200 dark:border-zinc-900">
-      <div className="page flex flex-col gap-3 py-8 text-sm text-zinc-500 sm:flex-row sm:items-center sm:justify-between dark:text-zinc-400">
-        <p>
+      <div className="page grid gap-10 py-12 sm:grid-cols-[minmax(0,1.4fr)_auto_auto] sm:gap-16">
+        <div>
+          <p className="font-medium text-zinc-900 dark:text-zinc-100">{profile.name}</p>
+          <p className="mt-2 max-w-[36ch] text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            React interfaces and the Java services behind them.
+          </p>
+        </div>
+        <nav aria-label="Footer">
+          <p className="eyebrow mb-3">Sections</p>
+          <ul className="grid gap-2 text-sm">
+            {navLinks.map((l) => (
+              <li key={l.id}>
+                <Link
+                  to={{ pathname: "/", hash: `#${l.id}` }}
+                  className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div>
+          <p className="eyebrow mb-3">Elsewhere</p>
+          <ul className="grid gap-2 text-sm">
+            {elsewhere.map((l) => (
+              <li key={l.label}>
+                <a
+                  href={l.href}
+                  {...(l.external ? { target: "_blank", rel: "noreferrer" } : {})}
+                  className="text-zinc-600 transition-colors hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+                >
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="page">
+        <p className="border-t border-zinc-200 py-6 text-xs text-zinc-500 dark:border-zinc-900">
           © {new Date().getFullYear()} {profile.name}
         </p>
-        <ul className="flex flex-wrap gap-x-5 gap-y-2">
-          <li>
-            <a className="link-underline" href={profile.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-          </li>
-          <li>
-            <a className="link-underline" href={profile.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
-            </a>
-          </li>
-          <li>
-            <a className="link-underline" href={`mailto:${profile.email}`}>
-              Email
-            </a>
-          </li>
-          <li>
-            <a className="link-underline" href={profile.resume} target="_blank" rel="noreferrer">
-              Resume
-            </a>
-          </li>
-        </ul>
       </div>
     </footer>
   );

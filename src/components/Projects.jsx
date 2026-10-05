@@ -67,7 +67,7 @@ export default function Projects() {
     <Section
       id="work"
       index="04"
-      eyebrow="Work"
+      eyebrow="Projects"
       title="Selected work."
       intro="Three projects I can talk about in depth. Each has a case study covering what I built and how."
     >

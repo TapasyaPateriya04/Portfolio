@@ -3,6 +3,7 @@ import { ArrowDownIcon, DownloadSimpleIcon } from "@phosphor-icons/react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { profile } from "../data/content.js";
 import HeroVisual from "./visuals/HeroVisual.jsx";
+import Magnetic from "./Magnetic.jsx";
 
 const item = {
   hidden: { opacity: 0, y: 14 },
@@ -38,10 +39,12 @@ export default function Hero() {
             side, React dashboards on the other. 49+ B2B clients were onboarded by the end of my internship.
           </motion.p>
           <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-3">
-            <a href="#work" className="btn-primary">
-              See my work
-              <ArrowDownIcon size={16} weight="bold" aria-hidden="true" />
-            </a>
+            <Magnetic>
+              <a href="#work" className="btn-primary">
+                View my work
+                <ArrowDownIcon size={16} weight="bold" aria-hidden="true" />
+              </a>
+            </Magnetic>
             <a href={profile.resume} download className="btn-ghost">
               <DownloadSimpleIcon size={16} weight="bold" aria-hidden="true" />
               Download resume

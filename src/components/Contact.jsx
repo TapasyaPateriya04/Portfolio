@@ -2,6 +2,7 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { AnimatePresence, motion } from "framer-motion";
 import {
+  ArrowUpRightIcon,
   CheckCircleIcon,
   CheckIcon,
   CircleNotchIcon,
@@ -178,6 +179,16 @@ export default function Contact() {
                   className="inline-flex items-center gap-2 text-zinc-700 transition-colors hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
                 >
                   <FaGithub size={16} aria-hidden="true" /> GitHub
+                </a>
+              </li>
+              <li>
+                <a
+                  href={profile.resume}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-zinc-700 transition-colors hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
+                >
+                  <ArrowUpRightIcon size={16} aria-hidden="true" /> Resume (PDF)
                 </a>
               </li>
             </ul>

@@ -187,14 +187,15 @@ const EmsVisual = memo(function EmsVisual() {
 });
 
 const visuals = {
-  prism: { V: PrismVisual, url: "prism · client portal" },
-  jobhunt: { V: JobHuntVisual, url: "localhost:8501" },
-  ems: { V: EmsVisual, url: "ems-roan-eta.vercel.app" },
+  prism: { V: PrismVisual, title: "Prism" },
+  jobhunt: { V: JobHuntVisual, title: "JobHunt AI" },
+  ems: { V: EmsVisual, title: "Employee Management System" },
 };
 
-// A browser window around each illustration, so the projects read as products.
+// An app window around each illustration. Deliberately no address bar or domain text:
+// fake URL bars read as browser-in-the-browser phishing to Safe Browsing classifiers.
 export default function ProjectVisual({ kind, className = "", interactive = true }) {
-  const { V, url } = visuals[kind] || {};
+  const { V, title } = visuals[kind] || {};
   const onPointerMove = useSpotlight();
   return (
     <div
@@ -208,11 +209,8 @@ export default function ProjectVisual({ kind, className = "", interactive = true
           <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
           <span className="h-2.5 w-2.5 rounded-full bg-zinc-300 dark:bg-zinc-700" />
         </span>
-        <span className="mx-auto flex max-w-[60%] items-center gap-1.5 truncate rounded-md bg-zinc-100 px-3 py-1 font-mono text-[10px] text-zinc-500 dark:bg-zinc-900 dark:text-zinc-400">
-          <LockSimpleIcon size={10} className="shrink-0" />
-          <span className="truncate">{url}</span>
-        </span>
-        <span className="w-[42px]" />
+        <span className="min-w-0 flex-1 truncate text-center text-[11px] font-medium text-zinc-500 dark:text-zinc-400">{title}</span>
+        <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-400 dark:text-zinc-500">illustration</span>
       </div>
       <div className="relative grid flex-1 place-items-center">
         <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />

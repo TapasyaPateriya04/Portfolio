@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://portfolio-brown-three-93.vercel.app/sitemap.xml
+Sitemap: https://tapasya-pateriya.vercel.app/sitemap.xml
